@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="320" viewBox="0 0 1000 320" role="img" aria-label="Orbiting VPS nodes">
+<rect width="1000" height="320" rx="16" fill="#0b1220"/>
+
+<circle cx="500" cy="160" r="110" fill="none" stroke="#2a3a55" stroke-width="2" stroke-dasharray="6 8"/>
+<circle cx="500" cy="160" r="38" fill="#111c33" stroke="#f5c542" stroke-width="3"/><text x="500" y="168" text-anchor="middle" font-family="monospace" font-size="16" fill="#f5c542">hub</text>
+<g><circle r="12" fill="#22c55e"><animateMotion dur="6s" repeatCount="indefinite" path="M500 160 m -110 0 a 110 110 0 1 0 220 0 a 110 110 0 1 0 -220 0"/></circle><circle r="12" fill="#7dd3fc"><animateMotion dur="6s" begin="2s" repeatCount="indefinite" path="M500 160 m -110 0 a 110 110 0 1 0 220 0 a 110 110 0 1 0 -220 0"/></circle><circle r="12" fill="#f5c542"><animateMotion dur="6s" begin="4s" repeatCount="indefinite" path="M500 160 m -110 0 a 110 110 0 1 0 220 0 a 110 110 0 1 0 -220 0"/></circle></g>
+<text x="500" y="300" text-anchor="middle" font-family="monospace" font-size="17" fill="#9fb3cc">vps2 • vps3 • prod — all through one hub list</text>
+
+</svg>

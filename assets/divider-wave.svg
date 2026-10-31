@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="80" viewBox="0 0 1200 80" role="img" aria-label="Wave divider">
+<rect width="1200" height="80" rx="16" fill="transparent"/>
+
+<path d="M0 40 Q150 10 300 40 T600 40 T900 40 T1200 40" fill="none" stroke="#f5c542" stroke-width="4"><animate attributeName="d" values="M0 40 Q150 10 300 40 T600 40 T900 40 T1200 40;M0 40 Q150 70 300 40 T600 40 T900 40 T1200 40;M0 40 Q150 10 300 40 T600 40 T900 40 T1200 40" dur="5s" repeatCount="indefinite"/></path>
+<path d="M0 60 Q200 35 400 60 T800 60 T1200 60" fill="none" stroke="#22c55e" stroke-width="3" stroke-opacity="0.6"><animate attributeName="d" values="M0 60 Q200 35 400 60 T800 60 T1200 60;M0 60 Q200 75 400 60 T800 60 T1200 60;M0 60 Q200 35 400 60 T800 60 T1200 60" dur="7s" repeatCount="indefinite"/></path>
+
+</svg>

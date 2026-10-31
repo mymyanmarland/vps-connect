@@ -40,9 +40,34 @@ footer{border-top:1px solid var(--line);padding-top:22px;color:var(--muted);disp
 .diagram .node{border:1px solid var(--gold);border-radius:12px;padding:14px 16px;text-align:center;min-width:170px}
 .diagram .node b{display:block} .arrow{font-size:24px;color:var(--gold)}
 @media(max-width:760px){.hero{grid-template-columns:1fr} h1{font-size:38px} .grid{grid-template-columns:1fr} .cmd{flex-direction:column;align-items:stretch} .copy{width:100%}}
+
+.blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;pointer-events:none;animation:blobMove 14s ease-in-out infinite alternate}
+.blob1{width:420px;height:420px;background:#173a2a;left:-80px;top:-60px}
+.blob2{width:360px;height:360px;background:#3a2a10;right:-60px;top:120px;animation-delay:-5s}
+.blob3{width:300px;height:300px;background:#123a4a;left:40%;bottom:-120px;animation-delay:-9s}
+@keyframes blobMove{from{transform:translate(0,0) scale(1)}to{transform:translate(40px,30px) scale(1.15)}}
+.particles span{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--gold);opacity:.7;animation:floatUp 7s linear infinite}
+@keyframes floatUp{from{transform:translateY(20px);opacity:0}50%{opacity:.9}to{transform:translateY(-90px);opacity:0}}
+h1,h2{background:linear-gradient(90deg,#f5c542,#22c55e,#7dd3fc,#f5c542);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gradShift 8s linear infinite}
+@keyframes gradShift{to{background-position:300% 0}}
+.card{transition:transform .25s,box-shadow .25s,border-color .25s}
+.card:hover{transform:translateY(-6px);box-shadow:0 18px 50px rgba(245,197,66,.18);border-color:var(--gold)}
+.copy{box-shadow:0 0 0 rgba(245,197,66,0)}
+.copy:hover{box-shadow:0 0 22px rgba(245,197,66,.55);border-color:var(--gold)}
+.btn-gold{box-shadow:0 0 24px rgba(245,197,66,.35);transition:transform .2s,box-shadow .2s}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 0 34px rgba(245,197,66,.6)}
+.wave-divider{display:block;width:100%;height:48px;margin:28px 0}
+.pulse-dot{animation:pulseDot 2s ease-in-out infinite}
+@keyframes pulseDot{0%,100%{opacity:.3}50%{opacity:1}}
+.vps-node{transition:transform .25s}
+.vps-node:hover{transform:scale(1.06)}
+@keyframes dashFlow{to{stroke-dashoffset:-40}}
+.flow-line{stroke-dasharray:8 8;animation:dashFlow 1.6s linear infinite}
+.hero{position:relative}
 </style>
 </head>
 <body>
+<div class="blob blob1"></div><div class="blob blob2"></div><div class="blob blob3"></div><div class="particles" aria-hidden="true"><span style="left:12%;top:180px"></span><span style="left:28%;top:320px;animation-delay:-2s"></span><span style="left:62%;top:140px;animation-delay:-4s"></span><span style="left:84%;top:300px;animation-delay:-1s"></span><span style="left:46%;top:420px;animation-delay:-5s"></span></div>
 <div class="wrap">
 <header>
   <div class="logo">vps<span>-connect</span></div>
@@ -59,14 +84,11 @@ footer{border-top:1px solid var(--line);padding-top:22px;color:var(--muted);disp
   </div>
   <div class="term" aria-label="Terminal demo">
     <div class="dots"><span style="background:#ff5f56"></span><span style="background:#ffbd2e"></span><span style="background:#27c93f"></span> terminal</div>
-    <pre id="typed">$ ./connect-vps.sh --name vps2 --host &lt;VPS-IP&gt;
-<span class="ok">✓ Public key copied.</span>
-<span class="ok">✓ Alias added: ssh vps2</span>
-<span class="ok">VPS-CONNECT-OK</span>
-$ <span class="gold">ssh vps2</span><span id="cursor">▋</span></pre>
+    <pre id="typed" aria-label="Animated terminal demo">$ ./connect-vps.sh --name vps2 --host &lt;VPS-IP&gt;<span id="cursor">▋</span></pre>
   </div>
 </section>
 
+<svg class="wave-divider" viewBox="0 0 1200 48" preserveAspectRatio="none" aria-hidden="true"><path d="M0 24 Q150 4 300 24 T600 24 T900 24 T1200 24" fill="none" stroke="#f5c542" stroke-width="3"/><path d="M0 36 Q200 18 400 36 T800 36 T1200 36" fill="none" stroke="#22c55e" stroke-width="2" opacity=".6"/></svg>
 <section id="start">
   <h2>Start in 3 commands</h2>
   <p class="muted">Download, make it executable, run it. Replace <code>&lt;VPS-IP&gt;</code> with your VPS IP or hostname, and <code>vps2</code> with any alias you like.</p>
@@ -83,10 +105,19 @@ $ <span class="gold">ssh vps2</span><span id="cursor">▋</span></pre>
     <div class="card"><h3>📱 PC + phone</h3><p>Same commands on a PC terminal and on Android Termux. Run the script once on each device you want to use.</p></div>
     <div class="card"><h3>🛡️ Safe by default</h3><p>Your private key never leaves your device. Only the public key is copied. Config is backed up before editing.</p></div>
   </div>
-  <div class="diagram" aria-label="How it works diagram">
-    <div class="node"><b>Your terminal</b><span class="muted">PC or phone</span></div><div class="arrow">→</div>
-    <div class="node"><b>SSH key + alias</b><span class="muted">Only .pub is copied</span></div><div class="arrow">→</div>
-    <div class="node"><b>Any VPS</b><span class="muted">ssh vps2</span></div>
+  <div class="diagram" aria-label="Animated diagram: terminal to VPS nodes">
+    <svg viewBox="0 0 900 220" width="100%" role="img" aria-label="Animated diagram, not a screenshot">
+      <path class="flow-line" d="M210 110 H380" stroke="#f5c542" stroke-width="3" fill="none"/>
+      <path class="flow-line" d="M560 110 H650 L760 50" stroke="#22c55e" stroke-width="3" fill="none"/>
+      <path class="flow-line" d="M560 110 H650 L760 110" stroke="#7dd3fc" stroke-width="3" fill="none"/>
+      <path class="flow-line" d="M560 110 H650 L760 170" stroke="#f5c542" stroke-width="3" fill="none"/>
+      <g class="vps-node"><rect x="40" y="70" width="170" height="80" rx="14" fill="#0a0f1a" stroke="#f5c542"/><text x="125" y="105" text-anchor="middle" fill="#e8eef7" font-size="16" font-weight="700">Your terminal</text><text x="125" y="130" text-anchor="middle" fill="#9fb3cc" font-size="13">PC or phone</text></g>
+      <g class="vps-node"><rect x="380" y="70" width="180" height="80" rx="14" fill="#111c33" stroke="#7dd3fc"/><text x="470" y="105" text-anchor="middle" fill="#e8eef7" font-size="16" font-weight="700">SSH key + alias</text><text x="470" y="130" text-anchor="middle" fill="#9fb3cc" font-size="13">Only .pub is copied</text></g>
+      <g class="vps-node"><rect x="760" y="20" width="110" height="55" rx="12" fill="#0a0f1a" stroke="#22c55e"/><text x="815" y="55" text-anchor="middle" fill="#e8eef7" font-size="16">vps2</text></g>
+      <g class="vps-node"><rect x="760" y="85" width="110" height="55" rx="12" fill="#0a0f1a" stroke="#7dd3fc"/><text x="815" y="120" text-anchor="middle" fill="#e8eef7" font-size="16">vps3</text></g>
+      <g class="vps-node"><rect x="760" y="150" width="110" height="55" rx="12" fill="#0a0f1a" stroke="#f5c542"/><text x="815" y="185" text-anchor="middle" fill="#e8eef7" font-size="16">prod</text></g>
+      <circle class="pulse-dot" cx="210" cy="110" r="7" fill="#f5c542"/><circle class="pulse-dot" cx="560" cy="110" r="7" fill="#22c55e"/>
+    </svg>
   </div>
   <p class="muted" style="text-align:center">Diagram: one script run per terminal — then connect with a short alias, on any VPS.</p>
 </section>
@@ -119,6 +150,7 @@ $ <span class="gold">ssh vps2</span><span id="cursor">▋</span></pre>
   <details><summary>What was tested?</summary><p>Locally, with no real VPS contact: syntax, help, dry-run, temp-HOME runs (key reuse, backup, same-alias replacement, validation failures), and real ed25519 generation in a temp HOME. A real VPS copy and a real phone run are still for you to test on a VPS you choose.</p></details>
 </section>
 
+<svg class="wave-divider" viewBox="0 0 1200 48" preserveAspectRatio="none" aria-hidden="true"><path d="M0 24 Q150 44 300 24 T600 24 T900 24 T1200 24" fill="none" stroke="#22c55e" stroke-width="3"/></svg>
 <footer>
   <div><b style="color:var(--gold)">vps-connect</b> • MIT • Open Source</div>
   <div><a href="https://github.com/mymyanmarland/vps-connect" target="_blank" rel="noopener">GitHub repository ↗</a> • <a href="https://raw.githubusercontent.com/mymyanmarland/vps-connect/main/connect-vps.sh" target="_blank" rel="noopener">Raw script ↗</a></div>
@@ -140,7 +172,18 @@ document.querySelectorAll('.copy').forEach(function(btn){
     }
   });
 });
-setInterval(function(){ var c = document.getElementById('cursor'); if(c) c.style.opacity = c.style.opacity === '0' ? '1' : '0'; }, 600);
+(function(){
+  var lines = ['$ ./connect-vps.sh --name vps2 --host <VPS-IP>', '✓ Public key copied.', '✓ Alias added: ssh vps2', 'VPS-CONNECT-OK', '$ ssh vps2'];
+  var el = document.getElementById('typed'); if(!el) return;
+  var li = 0, ci = 0, buf = '';
+  function tick(){
+    if (li >= lines.length) { setTimeout(function(){ li = 0; ci = 0; buf = ''; el.innerHTML = '$ '; }, 2200); return; }
+    var line = lines[li];
+    if (ci <= line.length) { buf = lines.slice(0, li).join('\n') + (li ? '\n' : '') + line.slice(0, ci); el.innerHTML = buf.replace(/&/g,'&amp;').replace(/</g,'&lt;') + '<span id="cursor">▋</span>'; ci++; setTimeout(tick, 28); }
+    else { li++; ci = 0; setTimeout(tick, 420); }
+  }
+  el.innerHTML = '$ '; setTimeout(tick, 500);
+})();
 </script>
 </body>
 </html>

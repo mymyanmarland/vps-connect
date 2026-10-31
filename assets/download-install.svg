@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="240" viewBox="0 0 1000 240" role="img" aria-label="Download install flow">
+<rect width="1000" height="240" rx="16" fill="#0b1220"/>
+
+<g font-family="monospace" font-size="18" fill="#e8eef7">
+<rect x="40" y="90" width="260" height="70" rx="14" fill="#111c33" stroke="#7dd3fc"/><text x="170" y="132" text-anchor="middle">curl -O script</text>
+<rect x="370" y="90" width="260" height="70" rx="14" fill="#111c33" stroke="#f5c542"/><text x="500" y="132" text-anchor="middle">chmod +x</text>
+<rect x="700" y="90" width="260" height="70" rx="14" fill="#111c33" stroke="#22c55e"/><text x="830" y="132" text-anchor="middle">./connect-vps.sh</text>
+</g>
+<g stroke="#f5c542" stroke-width="3"><path d="M300 125 H370"/><path d="M630 125 H700"/></g>
+<circle r="6" fill="#f5c542"><animateMotion dur="1.6s" begin="0s" repeatCount="indefinite" path="M300 125 H370"/></circle> <circle r="6" fill="#22c55e"><animateMotion dur="1.6s" begin=".8s" repeatCount="indefinite" path="M630 125 H700"/></circle>
+<rect x="40" y="190" width="920" height="16" rx="8" fill="#2a3a55"/><rect x="40" y="190" width="920" height="16" rx="8" fill="#22c55e"><animate attributeName="width" values="0;920;920;0" dur="6s" repeatCount="indefinite"/></rect>
+
+</svg>

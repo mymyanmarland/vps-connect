@@ -2,6 +2,10 @@
 
 ![vps-connect banner](assets/banner.svg)
 
+![Hero waves — animated diagram](assets/hero-waves.svg)
+
+![Rotating taglines — animated diagram](assets/typing-taglines.svg)
+
 # vps-connect
 
 ### Connect to any VPS from any terminal.
@@ -33,7 +37,11 @@ It works on a PC terminal and on a phone terminal (for example Termux), because 
 
 ![How it works — diagram](assets/diagram.svg)
 
-![Divider](assets/divider.svg)
+![Terminal to many VPS nodes — animated diagram](assets/flow-multi.svg)
+
+![Orbiting VPS nodes — animated diagram](assets/orbit-nodes.svg)
+
+![Wave divider — animated](assets/divider-wave.svg)
 
 ## Quick start
 
@@ -45,6 +53,10 @@ chmod +x connect-vps.sh
 ./connect-vps.sh --name vps2 --host <VPS-IP>
 ```
 
+![Download and install flow — animated diagram](assets/download-install.svg)
+
+![Success check — animated diagram](assets/success-check.svg)
+
 Replace `<VPS-IP>` with your VPS IP or hostname, and `vps2` with any short alias you like (`vps`, `vps3`, `prod`, … — letters, digits, `-` and `_` only).
 
 Then, any time, from that terminal:
@@ -53,7 +65,7 @@ Then, any time, from that terminal:
 ssh vps2
 ```
 
-![Divider](assets/divider.svg)
+![Dots divider — animated](assets/divider-dots.svg)
 
 ## Usage
 
@@ -85,6 +97,8 @@ VPS IP or hostname:
 
 Dry run contacts no VPS, generates no key, and edits no file. It is the safe way to try the script first.
 
+![Dry-run shield — animated diagram](assets/dryrun-shield.svg)
+
 ### Help
 
 ```bash
@@ -108,6 +122,10 @@ Dry run contacts no VPS, generates no key, and edits no file. It is the safe way
    All other `Host` entries are preserved. A second run with the same alias does **not** duplicate the block — it replaces it.
 4. **Copy key** — Copies **only the public key** (`.pub`) to the VPS with `ssh-copy-id` (or a plain `ssh` fallback if `ssh-copy-id` is missing). This is the only first-time step that may ask for the VPS password.
 5. **Test** — Tests the alias with `ssh vps2 'echo VPS-CONNECT-OK'` and reports success or failure plainly.
+
+![Key and lock — animated diagram](assets/key-lock.svg)
+
+![Short alias shortcut — animated diagram](assets/alias-shortcut.svg)
 
 Repeat for every new VPS: change only `--name` and `--host`. Repeat on every terminal you want to use: each terminal gets its own key, and the VPS ends up with one public key per terminal.
 
@@ -137,6 +155,8 @@ Repeat for every new VPS: change only `--name` and `--host`. Repeat on every ter
 | PC — macOS / Linux / Windows (Git Bash, WSL) | Same commands. `$HOME/.ssh` is used automatically. |
 | Phone — Android, Termux | Install OpenSSH first: `pkg install openssh`, then run the same commands. |
 | Phone — iOS | iOS has no full Bash terminal like Termux. Use a PC terminal, or an iOS SSH app with its own key import, for the first setup. The alias itself lives in `~/.ssh/config` on the terminal where you ran the script. |
+
+![PC and phone terminals — animated diagram](assets/devices.svg)
 
 ## Options
 

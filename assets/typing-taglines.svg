@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="180" viewBox="0 0 900 180" role="img" aria-label="Rotating taglines">
+<rect width="900" height="180" rx="16" fill="#0b1220"/>
+
+<g font-family="sans-serif" font-size="28" font-weight="700" fill="#f5c542">
+<text x="450" y="70" text-anchor="middle" opacity="0">Any VPS. Any terminal.<animate attributeName="opacity" values="0;1;1;0" dur="9s" repeatCount="indefinite"/></text>
+<text x="450" y="70" text-anchor="middle" opacity="0">One script. One alias.<animate attributeName="opacity" values="0;0;1;1;0;0" dur="9s" begin="3s" repeatCount="indefinite"/></text>
+<text x="450" y="70" text-anchor="middle" opacity="0">Key, not password. Every time.<animate attributeName="opacity" values="0;0;0;1;1;0" dur="9s" begin="6s" repeatCount="indefinite"/></text>
+</g>
+<rect x="430" y="95" width="40" height="8" rx="4" fill="#22c55e"><animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/></rect>
+<text x="450" y="150" text-anchor="middle" font-family="monospace" font-size="18" fill="#9fb3cc">PC • Phone • Termux • Any VPS</text>
+
+</svg>
