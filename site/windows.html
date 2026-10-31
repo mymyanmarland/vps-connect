@@ -4,66 +4,93 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>vps-connect — Windows: PowerShell, Git Bash, or WSL?</title>
-<meta name="description" content= + desc + >
+<meta name="description" content="vps-connect: connect to any VPS from any terminal with one script and a short alias.">
 <style>
-:root{--bg:#0b1220;--panel:#111c33;--panel2:#0f1a2e;--gold:#f5c542;--green:#22c55e;--blue:#7dd3fc;--text:#e8eef7;--muted:#9fb3cc;--line:#2a3a55}
-*{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:radial-gradient(1200px 500px at 80% -10%,#173a2a 0,transparent 55%),radial-gradient(900px 400px at 10% 0,#2a2110 0,transparent 50%),var(--bg);color:var(--text);line-height:1.6}
-a{color:var(--blue)} .wrap{max-width:1080px;margin:0 auto;padding:24px 20px 64px}
-header{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
-.logo{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:800;font-size:22px;color:var(--gold)} .logo span{color:var(--green)}
-.tabs{position:sticky;top:0;z-index:20;background:rgba(11,18,32,.96);border-bottom:1px solid var(--line);display:flex;gap:8px;overflow-x:auto;padding:12px 2px;margin:16px 0 8px;scrollbar-width:thin}
-.tab{white-space:nowrap;padding:9px 16px;border-radius:999px;border:1px solid var(--line);color:var(--muted);text-decoration:none;font-weight:600}
-.tab:hover{color:var(--text);border-color:var(--gold)} .tab.active{background:var(--gold);color:#111;border-color:var(--gold)}
-.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;margin:36px 0 24px}
-h1{font-size:50px;line-height:1.05;margin:0 0 14px} h1 em{font-style:normal;color:var(--gold)}
-.lead{font-size:19px;color:var(--muted)} .pills{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
-.pill{border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:14px;color:var(--muted)}
-.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
-.btn{border:0;border-radius:12px;padding:13px 18px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block}
-.btn-gold{background:var(--gold);color:#111;box-shadow:0 0 24px rgba(245,197,66,.35)} .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
-.term{background:#0a0f1a;border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+
+:root{--bg:#0b1220;--surface:#121e36;--surface2:#0e1930;--ink:#edf2fa;--muted:#a7b6cf;--line:#263654;--gold:#f5c542;--gold-ink:#1a1400;--green:#2fbf71;--sky:#8ed0f5;--shadow:0 12px 32px rgba(0,0,0,.28)}
+*{box-sizing:border-box}
+html{scroll-padding-top:96px;overflow-x:clip}
+body{margin:0;width:100%;overflow-x:clip;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px}
+img,svg,video{max-width:100%}
+a{color:var(--sky)}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:8px}
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding:16px 16px 56px}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:4px 0 12px}
+.logo{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:800;font-size:clamp(1.15rem,4.5vw,1.4rem);color:var(--gold)}
+.logo span{color:var(--green)}
+.tabs{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin;margin:0 -16px;padding:12px 16px;background:rgba(11,18,32,.97);border-bottom:1px solid var(--line)}
+.tab{flex:0 0 auto;white-space:nowrap;padding:10px 15px;border-radius:999px;border:1px solid var(--line);color:var(--muted);text-decoration:none;font-weight:650;font-size:.95rem;min-height:44px;display:inline-flex;align-items:center}
+.tab:hover{color:var(--ink);border-color:var(--gold)}
+.tab.active{background:var(--gold);color:var(--gold-ink);border-color:var(--gold)}
+.preview-note{margin:16px 0 0;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface2);color:var(--muted);font-size:.9rem}
+.hero{display:grid;grid-template-columns:1fr;gap:24px;align-items:start;margin:28px 0 8px;position:relative;overflow:hidden;border-radius:20px;padding:4px}
+h1{font-size:clamp(2rem,7.5vw,3.4rem);line-height:1.08;letter-spacing:-.03em;margin:0 0 14px;color:var(--ink)}
+h1 em{font-style:normal;color:var(--gold)}
+h2{font-size:clamp(1.5rem,5vw,2rem);line-height:1.2;letter-spacing:-.02em;margin:0 0 12px;color:var(--ink)}
+h2::after{content:"";display:block;width:44px;height:4px;border-radius:4px;background:var(--gold);margin-top:10px}
+h3{margin:22px 0 8px;font-size:1.15rem}
+.lead{font-size:clamp(1.05rem,2.6vw,1.2rem);color:var(--muted);margin:0}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
+.pill{border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.875rem;color:var(--muted);background:var(--surface2)}
+.cta{display:grid;gap:10px;margin-top:20px}
+.btn{border:0;border-radius:12px;padding:13px 18px;font-weight:750;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;min-height:48px;text-align:center}
+.btn-gold{background:var(--gold);color:var(--gold-ink);box-shadow:0 8px 24px rgba(245,197,66,.25)}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.term{background:#070d1a;border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow);overflow:hidden;position:relative}
+.term::before{content:"";position:absolute;inset:0;background:radial-gradient(240px 160px at 85% 0,rgba(245,197,66,.14),transparent 60%);pointer-events:none}
+.term .dots{position:relative}
 .term .dots span{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:7px}
-.term pre{margin:14px 0 0;white-space:pre-wrap;word-break:break-all;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:15px;line-height:1.7}
+.term pre{position:relative;margin:14px 0 0;overflow-x:auto;white-space:pre;word-break:normal;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:clamp(.82rem,3.4vw,.95rem);line-height:1.7;padding-bottom:4px}
 .ok{color:var(--green)} .gold{color:var(--gold)}
-.cmd{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;justify-content:space-between;gap:12px;align-items:center;margin:12px 0}
-.cmd code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14.5px;word-break:break-all}
-.copy{background:#1d2c4d;color:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 12px;cursor:pointer;white-space:nowrap}
-.copy:hover{border-color:var(--gold);box-shadow:0 0 22px rgba(245,197,66,.55)}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;transition:transform .25s,box-shadow .25s,border-color .25s}
-.card:hover{transform:translateY(-6px);box-shadow:0 18px 50px rgba(245,197,66,.18);border-color:var(--gold)}
-.card h3{margin:0 0 8px} .card p{color:var(--muted);margin:0} .card a{color:var(--text);text-decoration:none}
-section{margin:40px 0} h2{font-size:30px;margin:0 0 12px} h3{margin-top:22px}
-.step{background:var(--panel2);border:1px solid var(--line);border-radius:16px;padding:20px;margin:14px 0}
+.cmd{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;gap:12px;margin:12px 0;overflow:hidden}
+.cmd code{min-width:0;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:clamp(.82rem,3.4vw,.92rem);overflow-wrap:anywhere;word-break:break-word;line-height:1.6}
+.copy{background:#1d2c4d;color:#fff;border:1px solid var(--line);border-radius:10px;padding:11px 14px;cursor:pointer;width:100%;min-height:44px;font-weight:650}
+.copy:hover{border-color:var(--gold)}
+.grid{display:grid;grid-template-columns:1fr;gap:16px;margin:28px 0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:var(--shadow)}
+.card h3{margin:0 0 8px} .card p{color:var(--muted);margin:0} .card a{color:var(--ink);text-decoration:none}
+section{margin:44px 0;scroll-margin-top:96px}
+.step{background:var(--surface2);border:1px solid var(--line);border-radius:16px;padding:18px;margin:14px 0}
 .step b{color:var(--gold)} .muted{color:var(--muted)}
-details{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:10px 0}
+details{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:10px 0}
 details summary{cursor:pointer;font-weight:700}
-footer{border-top:1px solid var(--line);padding-top:22px;color:var(--muted);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.diagram{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px}
-table{width:100%;border-collapse:collapse;margin:16px 0} th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top} th{background:var(--panel)}
-.note{background:#1a2a10;border:1px solid var(--green);border-radius:14px;padding:16px 18px;margin:16px 0}
-.warn{background:#2a1a10;border:1px solid var(--gold);border-radius:14px;padding:16px 18px;margin:16px 0}
-@media(max-width:760px){.hero{grid-template-columns:1fr} h1{font-size:38px} .grid{grid-template-columns:1fr} .cmd{flex-direction:column;align-items:stretch} .copy{width:100%} table{font-size:14px}}
-.blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;pointer-events:none;animation:blobMove 14s ease-in-out infinite alternate}
-.blob1{width:420px;height:420px;background:#173a2a;left:-80px;top:-60px}
-.blob2{width:360px;height:360px;background:#3a2a10;right:-60px;top:120px;animation-delay:-5s}
-.blob3{width:300px;height:300px;background:#123a4a;left:40%;bottom:-120px;animation-delay:-9s}
-@keyframes blobMove{from{transform:translate(0,0) scale(1)}to{transform:translate(40px,30px) scale(1.15)}}
-.particles span{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--gold);opacity:.7;animation:floatUp 7s linear infinite}
-@keyframes floatUp{from{transform:translateY(20px);opacity:0}50%{opacity:.9}to{transform:translateY(-90px);opacity:0}}
-h1,h2{background:linear-gradient(90deg,#f5c542,#22c55e,#7dd3fc,#f5c542);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gradShift 8s linear infinite}
-@keyframes gradShift{to{background-position:300% 0}}
-.wave-divider{display:block;width:100%;height:48px;margin:28px 0}
+footer{border-top:1px solid var(--line);padding-top:22px;color:var(--muted);display:flex;flex-direction:column;gap:12px}
+.diagram{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;overflow:hidden}
+.diagram svg{display:block;width:100%;height:auto}
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:14px;margin:16px 0}
+.tablewrap table{margin:0;min-width:560px}
+table{width:100%;border-collapse:collapse} th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top} th{background:var(--surface)}
+.note{background:#12291c;border:1px solid var(--green);border-radius:14px;padding:16px 18px;margin:16px 0}
+.warn{background:#2a2110;border:1px solid var(--gold);border-radius:14px;padding:16px 18px;margin:16px 0}
+.wave-divider{display:block;width:100%;height:36px;margin:28px 0}
 .pulse-dot{animation:pulseDot 2s ease-in-out infinite}
 @keyframes pulseDot{0%,100%{opacity:.3}50%{opacity:1}}
-.vps-node{transition:transform .25s} .vps-node:hover{transform:scale(1.06)}
-@keyframes dashFlow{to{stroke-dashoffset:-40}}
 .flow-line{stroke-dasharray:8 8;animation:dashFlow 1.6s linear infinite}
-.hero{position:relative}
+@keyframes dashFlow{to{stroke-dashoffset:-40}}
+@media (min-width:640px){
+  .wrap{padding:24px 24px 64px}
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .cta{display:flex;flex-wrap:wrap} .btn{width:auto}
+  .cmd{grid-template-columns:1fr auto;align-items:center} .copy{width:auto}
+  footer{flex-direction:row;justify-content:space-between;align-items:center}
+}
+@media (min-width:900px){
+  .hero{grid-template-columns:1.05fr .95fr;gap:32px}
+  .grid{grid-template-columns:repeat(3,1fr)}
+  .wrap{padding:24px 32px 72px}
+}
+@media (hover:hover){
+  .card:hover{transform:translateY(-4px);border-color:var(--gold)}
+  .vps-node:hover{transform:scale(1.04)}
+}
+.vps-node{transition:transform .25s}
+@media (prefers-reduced-motion:reduce){
+  .pulse-dot,.flow-line{animation:none}
+}
+
 </style>
 </head>
 <body>
-<div class="blob blob1"></div><div class="blob blob2"></div><div class="blob blob3"></div><div class="particles" aria-hidden="true"><span style="left:12%;top:180px"></span><span style="left:28%;top:320px;animation-delay:-2s"></span><span style="left:62%;top:140px;animation-delay:-4s"></span><span style="left:84%;top:300px;animation-delay:-1s"></span><span style="left:46%;top:420px;animation-delay:-5s"></span></div>
 <div class="wrap">
 <header>
   <div class="logo">vps<span>-connect</span></div>
@@ -74,12 +101,12 @@ h1,h2{background:linear-gradient(90deg,#f5c542,#22c55e,#7dd3fc,#f5c542);backgrou
 <section>
   <h2>Windows: pick one route</h2>
   <p class="lead">All three routes end at the same place: <code>ssh vps2</code>. Pick the one that fits how you already work — do not mix them up, or your alias will live in a different place than you expect.</p>
-  <table><tr><th></th><th>PowerShell (new)</th><th>Git Bash</th><th>WSL (Ubuntu)</th></tr>
+  <div class="tablewrap"><table><tr><th></th><th>PowerShell (new)</th><th>Git Bash</th><th>WSL (Ubuntu)</th></tr>
   <tr><td><b>Script</b></td><td>connect-vps.ps1</td><td>connect-vps.sh</td><td>connect-vps.sh</td></tr>
   <tr><td><b>You need</b></td><td>Windows OpenSSH client (usually built in)</td><td>Git for Windows</td><td>WSL + Ubuntu from the Microsoft Store</td></tr>
   <tr><td><b>Alias lives in</b></td><td>%USERPROFILE%\.ssh\config — shared with PowerShell and Git Bash</td><td>~/.ssh/config — the same Windows file as PowerShell</td><td>Inside WSL only (~/.ssh/config in Linux)</td></tr>
   <tr><td><b>After setup, ssh vps2 works in</b></td><td>PowerShell (and Git Bash)</td><td>Git Bash (and PowerShell)</td><td>WSL terminal only</td></tr>
-  <tr><td><b>Best for</b></td><td>You live in PowerShell</td><td>You already use Git Bash</td><td>You want a full Linux terminal</td></tr></table>
+  <tr><td><b>Best for</b></td><td>You live in PowerShell</td><td>You already use Git Bash</td><td>You want a full Linux terminal</td></tr></table></div>
   <div class="note"><b>Recommendation:</b> if you are on Windows and unsure, start with PowerShell — it is the route with nothing extra to install for most Windows 10/11 PCs.</div>
   <div class="warn"><b>Does NOT work:</b> double-clicking a <code>.sh</code> file; running <code>./connect-vps.sh</code> in PowerShell or CMD; running <code>.\connect-vps.ps1</code> in CMD. A Bash script needs a Bash terminal (Git Bash or WSL), and a PowerShell script needs PowerShell.</div>
   <h3>Quick commands</h3>
