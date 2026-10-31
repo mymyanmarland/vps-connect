@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="300" viewBox="0 0 900 300" role="img" aria-label="Terminal demo diagram">
+  <rect width="900" height="300" rx="16" fill="#0a0f1a" stroke="#2a3a55"/>
+  <circle cx="40" cy="32" r="7" fill="#ff5f56"/><circle cx="65" cy="32" r="7" fill="#ffbd2e"/><circle cx="90" cy="32" r="7" fill="#27c93f"/>
+  <text x="120" y="38" font-family="monospace" font-size="16" fill="#9fb3cc">terminal — vps-connect demo</text>
+  <g font-family="monospace" font-size="19" fill="#d7e3f4">
+    <text x="30" y="80" opacity="0">$ ./connect-vps.sh --name vps2 --host &lt;VPS-IP&gt;<animate attributeName="opacity" from="0" to="1" begin="0.3s" dur="0.4s" fill="freeze"/></text>
+    <text x="30" y="115" fill="#22c55e" opacity="0">Key: reusing existing key ~/.ssh/id_ed25519<animate attributeName="opacity" from="0" to="1" begin="1.2s" dur="0.4s" fill="freeze"/></text>
+    <text x="30" y="150" fill="#22c55e" opacity="0">Public key copied.  Alias added: ssh vps2<animate attributeName="opacity" from="0" to="1" begin="2.1s" dur="0.4s" fill="freeze"/></text>
+    <text x="30" y="185" fill="#22c55e" opacity="0">VPS-CONNECT-OK<animate attributeName="opacity" from="0" to="1" begin="3.0s" dur="0.4s" fill="freeze"/></text>
+    <text x="30" y="220" opacity="0">$ ssh vps2<animate attributeName="opacity" from="0" to="1" begin="3.9s" dur="0.4s" fill="freeze"/><rect x="145" y="206" width="11" height="19" fill="#f5c542"><animate attributeName="opacity" dur="1s" begin="4.3s" repeatCount="indefinite" values="1;0;1"/></rect></text>
+    <text x="30" y="260" fill="#9fb3cc" font-size="16" opacity="0">No IP to remember. No password stored by the script.<animate attributeName="opacity" from="0" to="1" begin="4.8s" dur="0.4s" fill="freeze"/></text>
+  </g>
+</svg>

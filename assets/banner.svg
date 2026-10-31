@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-label="vps-connect banner">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1220"/>
+      <stop offset="55%" stop-color="#111c33"/>
+      <stop offset="100%" stop-color="#0f2a22"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f5c542"/>
+      <stop offset="100%" stop-color="#ffdf7e"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="360" fill="url(#bg)"/>
+  <g fill="none" stroke="#22c55e" stroke-opacity="0.25">
+    <path d="M0 300 Q 150 260 300 300 T 600 300 T 900 300 T 1200 300">
+      <animate attributeName="d" dur="6s" repeatCount="indefinite" values="M0 300 Q 150 260 300 300 T 600 300 T 900 300 T 1200 300; M0 300 Q 150 340 300 300 T 600 300 T 900 300 T 1200 300; M0 300 Q 150 260 300 300 T 600 300 T 900 300 T 1200 300"/>
+    </path>
+    <path d="M0 320 Q 150 285 300 320 T 600 320 T 900 320 T 1200 320" stroke="#f5c542" stroke-opacity="0.35">
+      <animate attributeName="d" dur="7s" repeatCount="indefinite" values="M0 320 Q 150 285 300 320 T 600 320 T 900 320 T 1200 320; M0 320 Q 150 355 300 320 T 600 320 T 900 320 T 1200 320; M0 320 Q 150 285 300 320 T 600 320 T 900 320 T 1200 320"/>
+    </path>
+  </g>
+  <g font-family="monospace">
+    <text x="60" y="110" font-size="72" font-weight="700" fill="url(#gold)">vps-connect</text>
+    <text x="62" y="158" font-size="26" fill="#e8eef7">Connect to any VPS from any terminal.</text>
+    <text x="62" y="192" font-size="18" fill="#9fb3cc">One script. One alias. No IP to remember.</text>
+  </g>
+  <g>
+    <rect x="700" y="55" width="440" height="210" rx="14" fill="#0a0f1a" stroke="#2a3a55"/>
+    <circle cx="730" cy="82" r="7" fill="#ff5f56"/><circle cx="755" cy="82" r="7" fill="#ffbd2e"/><circle cx="780" cy="82" r="7" fill="#27c93f"/>
+    <g font-family="monospace" font-size="17" fill="#d7e3f4">
+      <text x="725" y="125">$ ./connect-vps.sh --name vps2</text>
+      <text x="725" y="155" fill="#22c55e">✓ Public key copied.</text>
+      <text x="725" y="185" fill="#22c55e">✓ Alias added: ssh vps2</text>
+      <text x="725" y="215">$ ssh vps2 <rect x="838" y="203" width="10" height="18" fill="#f5c542"><animate attributeName="opacity" dur="1s" repeatCount="indefinite" values="1;0;1"/></rect></text>
+    </g>
+  </g>
+  <g font-family="monospace" font-size="16">
+    <rect x="60" y="235" width="150" height="34" rx="17" fill="none" stroke="#f5c542"/><text x="80" y="257" fill="#f5c542">● PC terminal</text>
+    <rect x="230" y="235" width="175" height="34" rx="17" fill="none" stroke="#22c55e"/><text x="250" y="257" fill="#22c55e">● Phone • Termux</text>
+    <rect x="425" y="235" width="150" height="34" rx="17" fill="none" stroke="#7dd3fc"/><text x="445" y="257" fill="#7dd3fc">● Any VPS</text>
+  </g>
+</svg>

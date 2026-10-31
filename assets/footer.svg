@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="80" viewBox="0 0 1000 80" role="img" aria-label="vps-connect footer">
+  <rect width="1000" height="80" rx="12" fill="#0b1220"/>
+  <text x="500" y="32" font-family="monospace" font-size="18" fill="#f5c542" text-anchor="middle">vps-connect • MIT • Open Source</text>
+  <text x="500" y="58" font-family="sans-serif" font-size="14" fill="#9fb3cc" text-anchor="middle">Your key stays on your device. Your password is never stored by the script.</text>
+</svg>

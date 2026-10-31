@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="24" viewBox="0 0 1000 24" role="img" aria-label="Divider">
+  <line x1="0" y1="12" x2="1000" y2="12" stroke="#2a3a55" stroke-width="2"/>
+  <circle cx="500" cy="12" r="6" fill="#f5c542"><animate attributeName="r" dur="2s" repeatCount="indefinite" values="6;9;6"/></circle>
+  <circle cx="470" cy="12" r="3" fill="#22c55e"/><circle cx="530" cy="12" r="3" fill="#22c55e"/>
+</svg>
