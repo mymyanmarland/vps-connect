@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>vps-connect — PowerShell version</title>
+<meta name="description" content= + desc + >
+<style>
+:root{--bg:#0b1220;--panel:#111c33;--panel2:#0f1a2e;--gold:#f5c542;--green:#22c55e;--blue:#7dd3fc;--text:#e8eef7;--muted:#9fb3cc;--line:#2a3a55}
+*{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:radial-gradient(1200px 500px at 80% -10%,#173a2a 0,transparent 55%),radial-gradient(900px 400px at 10% 0,#2a2110 0,transparent 50%),var(--bg);color:var(--text);line-height:1.6}
+a{color:var(--blue)} .wrap{max-width:1080px;margin:0 auto;padding:24px 20px 64px}
+header{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:800;font-size:22px;color:var(--gold)} .logo span{color:var(--green)}
+.tabs{position:sticky;top:0;z-index:20;background:rgba(11,18,32,.96);border-bottom:1px solid var(--line);display:flex;gap:8px;overflow-x:auto;padding:12px 2px;margin:16px 0 8px;scrollbar-width:thin}
+.tab{white-space:nowrap;padding:9px 16px;border-radius:999px;border:1px solid var(--line);color:var(--muted);text-decoration:none;font-weight:600}
+.tab:hover{color:var(--text);border-color:var(--gold)} .tab.active{background:var(--gold);color:#111;border-color:var(--gold)}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;margin:36px 0 24px}
+h1{font-size:50px;line-height:1.05;margin:0 0 14px} h1 em{font-style:normal;color:var(--gold)}
+.lead{font-size:19px;color:var(--muted)} .pills{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
+.pill{border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:14px;color:var(--muted)}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
+.btn{border:0;border-radius:12px;padding:13px 18px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block}
+.btn-gold{background:var(--gold);color:#111;box-shadow:0 0 24px rgba(245,197,66,.35)} .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+.term{background:#0a0f1a;border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.term .dots span{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:7px}
+.term pre{margin:14px 0 0;white-space:pre-wrap;word-break:break-all;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:15px;line-height:1.7}
+.ok{color:var(--green)} .gold{color:var(--gold)}
+.cmd{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;justify-content:space-between;gap:12px;align-items:center;margin:12px 0}
+.cmd code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14.5px;word-break:break-all}
+.copy{background:#1d2c4d;color:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 12px;cursor:pointer;white-space:nowrap}
+.copy:hover{border-color:var(--gold);box-shadow:0 0 22px rgba(245,197,66,.55)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;transition:transform .25s,box-shadow .25s,border-color .25s}
+.card:hover{transform:translateY(-6px);box-shadow:0 18px 50px rgba(245,197,66,.18);border-color:var(--gold)}
+.card h3{margin:0 0 8px} .card p{color:var(--muted);margin:0} .card a{color:var(--text);text-decoration:none}
+section{margin:40px 0} h2{font-size:30px;margin:0 0 12px} h3{margin-top:22px}
+.step{background:var(--panel2);border:1px solid var(--line);border-radius:16px;padding:20px;margin:14px 0}
+.step b{color:var(--gold)} .muted{color:var(--muted)}
+details{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:10px 0}
+details summary{cursor:pointer;font-weight:700}
+footer{border-top:1px solid var(--line);padding-top:22px;color:var(--muted);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.diagram{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px}
+table{width:100%;border-collapse:collapse;margin:16px 0} th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top} th{background:var(--panel)}
+.note{background:#1a2a10;border:1px solid var(--green);border-radius:14px;padding:16px 18px;margin:16px 0}
+.warn{background:#2a1a10;border:1px solid var(--gold);border-radius:14px;padding:16px 18px;margin:16px 0}
+@media(max-width:760px){.hero{grid-template-columns:1fr} h1{font-size:38px} .grid{grid-template-columns:1fr} .cmd{flex-direction:column;align-items:stretch} .copy{width:100%} table{font-size:14px}}
+.blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;pointer-events:none;animation:blobMove 14s ease-in-out infinite alternate}
+.blob1{width:420px;height:420px;background:#173a2a;left:-80px;top:-60px}
+.blob2{width:360px;height:360px;background:#3a2a10;right:-60px;top:120px;animation-delay:-5s}
+.blob3{width:300px;height:300px;background:#123a4a;left:40%;bottom:-120px;animation-delay:-9s}
+@keyframes blobMove{from{transform:translate(0,0) scale(1)}to{transform:translate(40px,30px) scale(1.15)}}
+.particles span{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--gold);opacity:.7;animation:floatUp 7s linear infinite}
+@keyframes floatUp{from{transform:translateY(20px);opacity:0}50%{opacity:.9}to{transform:translateY(-90px);opacity:0}}
+h1,h2{background:linear-gradient(90deg,#f5c542,#22c55e,#7dd3fc,#f5c542);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gradShift 8s linear infinite}
+@keyframes gradShift{to{background-position:300% 0}}
+.wave-divider{display:block;width:100%;height:48px;margin:28px 0}
+.pulse-dot{animation:pulseDot 2s ease-in-out infinite}
+@keyframes pulseDot{0%,100%{opacity:.3}50%{opacity:1}}
+.vps-node{transition:transform .25s} .vps-node:hover{transform:scale(1.06)}
+@keyframes dashFlow{to{stroke-dashoffset:-40}}
+.flow-line{stroke-dasharray:8 8;animation:dashFlow 1.6s linear infinite}
+.hero{position:relative}
+</style>
+</head>
+<body>
+<div class="blob blob1"></div><div class="blob blob2"></div><div class="blob blob3"></div><div class="particles" aria-hidden="true"><span style="left:12%;top:180px"></span><span style="left:28%;top:320px;animation-delay:-2s"></span><span style="left:62%;top:140px;animation-delay:-4s"></span><span style="left:84%;top:300px;animation-delay:-1s"></span><span style="left:46%;top:420px;animation-delay:-5s"></span></div>
+<div class="wrap">
+<header>
+  <div class="logo">vps<span>-connect</span></div>
+  <div><a href="https://github.com/mymyanmarland/vps-connect" target="_blank" rel="noopener">GitHub ↗</a></div>
+</header>
+<nav class="tabs" aria-label="Sections"><a class="tab" href="index.html">Overview</a><a class="tab" href="bash.html">Bash</a><a class="tab active" href="powershell.html">PowerShell</a><a class="tab" href="windows.html">Windows</a><a class="tab" href="phone.html">Phone</a><a class="tab" href="faq.html">FAQ</a></nav>
+
+<section>
+  <h2>PowerShell version</h2>
+  <p class="lead">For Windows users who live in PowerShell. No Git Bash needed. Same safety, same alias, same <code>ssh vps2</code> afterwards.</p>
+<div class="cmd"><code id="p-dl">Invoke-WebRequest -Uri https://raw.githubusercontent.com/mymyanmarland/vps-connect/main/connect-vps.ps1 -OutFile connect-vps.ps1</code><button class="copy" data-copy="p-dl">Copy</button></div><div class="cmd"><code id="p-dl2">curl.exe -O https://raw.githubusercontent.com/mymyanmarland/vps-connect/main/connect-vps.ps1</code><button class="copy" data-copy="p-dl2">Copy</button></div>
+  <div class="warn"><b>If PowerShell blocks the script, do not change your system policy first.</b> Either unblock this one file, or run it once without changing any policy:</div>
+<div class="cmd"><code id="p-unblock">Unblock-File .\connect-vps.ps1</code><button class="copy" data-copy="p-unblock">Copy</button></div><div class="cmd"><code id="p-run">.\connect-vps.ps1 -Name vps2 -Host &lt;VPS-IP&gt;</code><button class="copy" data-copy="p-run">Copy</button></div><div class="cmd"><code id="p-bypass">powershell -ExecutionPolicy Bypass -File .\connect-vps.ps1 -Name vps2 -Host &lt;VPS-IP&gt;</code><button class="copy" data-copy="p-bypass">Copy</button></div><div class="cmd"><code id="p-ssh">ssh vps2</code><button class="copy" data-copy="p-ssh">Copy</button></div>
+  <p class="muted">Alternative, if you prefer a policy change: <code>Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</code> — a file downloaded with a browser may still need <code>Unblock-File</code> even under RemoteSigned. A file downloaded with Invoke-WebRequest usually does not carry that mark.</p>
+  <div class="step"><b>1. Open PowerShell</b> (not CMD) in the folder where you downloaded the script.</div>
+  <div class="step"><b>2. Run it.</b><br><code>.\connect-vps.ps1 -Name vps2 -Host &lt;VPS-IP&gt;</code> — or just <code>.\connect-vps.ps1</code> and answer the two prompts.</div>
+  <div class="step"><b>3. First time only: type the VPS password in your own PowerShell window, at that prompt.</b><br>It is never stored or printed by the script.</div>
+  <div class="step"><b>4. Done. Connect any time.</b><br><code>ssh vps2</code> — in PowerShell, or in any terminal that reads the same <code>%USERPROFILE%\.ssh\config</code> file.</div>
+  <h3>How it differs from the Bash version</h3>
+  <ul>
+    <li><b>No ssh-copy-id on Windows</b> — the public key is copied with a plain <code>ssh</code> command instead.</li>
+    <li><b>Only the first two tokens</b> of the <code>.pub</code> file (key type + base64) are sent; any trailing comment is dropped, so shell quoting cannot mangle the key.</li>
+    <li><b>Config path is</b> <code>%USERPROFILE%\.ssh\config</code>, and the IdentityFile in that config uses forward slashes, which Windows OpenSSH reads cleanly.</li>
+    <li>Everything else is the same: validation before any ssh, key reuse (never overwrite), config backup, same-alias replacement (never duplicate), and the <code>VPS-CONNECT-OK</code> test.</li>
+  </ul>
+  <p class="muted">Try the dry run first: <code>.\connect-vps.ps1 -DryRun -Name vps2 -Host &lt;VPS-IP&gt;</code> — it changes nothing and contacts no VPS.</p>
+  <div class="note"><b>Requirements:</b> Windows 10/11 built-in OpenSSH client (ssh, ssh-keygen). If ssh is missing: Settings &gt; Apps &gt; Optional features &gt; OpenSSH Client, or as Administrator: <code>Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0</code></div>
+</section>
+
+<svg class="wave-divider" viewBox="0 0 1200 48" preserveAspectRatio="none" aria-hidden="true"><path d="M0 24 Q150 44 300 24 T600 24 T900 24 T1200 24" fill="none" stroke="#22c55e" stroke-width="3"/></svg>
+<footer>
+  <div><b style="color:var(--gold)">vps-connect</b> • MIT • Open Source</div>
+  <div><a href="https://github.com/mymyanmarland/vps-connect" target="_blank" rel="noopener">GitHub repository ↗</a></div>
+</footer>
+</div>
+<script>
+document.querySelectorAll('.copy').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var id = btn.getAttribute('data-copy');
+    var el = document.getElementById(id); if(!el) return;
+    var text = el.textContent;
+    var done = function(){ var old = btn.textContent; btn.textContent = 'Copied ✓'; setTimeout(function(){ btn.textContent = old; }, 1600); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(function(){ fallback(); });
+    } else { fallback(); }
+    function fallback(){
+      var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); done(); } catch(e) { alert(text); }
+      document.body.removeChild(ta);
+    }
+  });
+});
+
+</script>
+</body>
+</html>

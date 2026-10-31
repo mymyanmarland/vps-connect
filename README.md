@@ -14,6 +14,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-gold.svg)](LICENSE)
 [![Shell: Bash](https://img.shields.io/badge/Shell-Bash-22c55e.svg)](connect-vps.sh)
+[![Shell: PowerShell](https://img.shields.io/badge/Shell-PowerShell-7dd3fc.svg)](connect-vps.ps1)
 [![SSH: OpenSSH](https://img.shields.io/badge/SSH-OpenSSH-7dd3fc.svg)](connect-vps.sh)
 [![Works on: PC & Phone](https://img.shields.io/badge/Works%20on-PC%20%26%20Phone-f5c542.svg)](#pc--phone)
 
@@ -23,7 +24,7 @@
 
 ## What it is
 
-`vps-connect` is a small, standalone Bash script — **not a web panel, not a service, not a product server**.
+`vps-connect` is a small, standalone script — **not a web panel, not a service, not a product server**. There are two versions with the same behaviour: `connect-vps.sh` (Bash) and `connect-vps.ps1` (PowerShell, for Windows).
 
 Run it once per terminal, for each VPS you want to reach. It sets up an SSH key and a short alias, so afterwards you connect with just:
 
@@ -64,6 +65,15 @@ Then, any time, from that terminal:
 ```bash
 ssh vps2
 ```
+
+### PowerShell version (Windows)
+
+```powershell
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/mymyanmarland/vps-connect/main/connect-vps.ps1 -OutFile connect-vps.ps1
+.\connect-vps.ps1 -Name vps2 -Host <VPS-IP>
+```
+
+If PowerShell blocks the script, unblock just this file (`Unblock-File .\connect-vps.ps1`) and run it again, or run it once without changing any policy: `powershell -ExecutionPolicy Bypass -File .\connect-vps.ps1 -Name vps2 -Host <VPS-IP>`. See the full PowerShell notes in [connect-vps.ps1](connect-vps.ps1) and on the website's PowerShell and Windows tabs. A `.sh` file does not run in PowerShell or CMD, and a `.ps1` file does not run in CMD.
 
 ![Dots divider — animated](assets/divider-dots.svg)
 
@@ -152,7 +162,8 @@ Repeat for every new VPS: change only `--name` and `--host`. Repeat on every ter
 
 | Terminal | Notes |
 | --- | --- |
-| PC — macOS / Linux / Windows (Git Bash, WSL) | Same commands. `$HOME/.ssh` is used automatically. |
+| PC — macOS / Linux / Windows (Git Bash, WSL) | Same Bash commands. `$HOME/.ssh` is used automatically. |
+| PC — Windows PowerShell | Use `connect-vps.ps1` instead (see above). The alias lives in `%USERPROFILE%\.ssh\config`, so `ssh vps2` then works in PowerShell and Git Bash. |
 | Phone — Android, Termux | Install OpenSSH first: `pkg install openssh`, then run the same commands. |
 | Phone — iOS | iOS has no full Bash terminal like Termux. Use a PC terminal, or an iOS SSH app with its own key import, for the first setup. The alias itself lives in `~/.ssh/config` on the terminal where you ran the script. |
 
@@ -179,6 +190,9 @@ Repeat for every new VPS: change only `--name` and `--host`. Repeat on every ter
 
 ## FAQ
 
+**Which script should I use on Windows?**
+PowerShell: `connect-vps.ps1`. Git Bash or WSL: `connect-vps.sh`. The website's Windows tab compares PowerShell, Git Bash, and WSL side by side.
+
 **Is this a web panel?**
 No. There is no website to log into and no server to run. It is one script you run in your own terminal.
 
@@ -194,7 +208,7 @@ Yes. Run the script once on each device. Each device gets its own key; the VPS a
 **What was tested, and what was not?**
 Tested locally, with **no real VPS contact**: syntax check, `--help`, `--dry-run` (no files changed), temp-HOME runs (key reuse, key generation flow, config backup, same-alias replacement without duplication, other hosts preserved, validation failures), and real ed25519 key generation in a temp HOME.
 
-**Not tested:** a real VPS key copy, and a real phone (Termux) run. Test those yourself on a VPS you choose, using the commands above. The script contacts no VPS in `--dry-run` mode.
+**Not tested:** a real VPS key copy, a real Windows PowerShell run, and a real phone (Termux) run. Test those yourself on a VPS you choose, using the commands above. The script contacts no VPS in `--dry-run` mode.
 
 ![Divider](assets/divider.svg)
 

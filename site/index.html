@@ -4,21 +4,23 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>vps-connect — Connect to any VPS from any terminal</title>
-<meta name="description" content="One script, one alias, no IP to remember. Connect to any VPS from any terminal, PC or phone.">
+<meta name="description" content= + desc + >
 <style>
 :root{--bg:#0b1220;--panel:#111c33;--panel2:#0f1a2e;--gold:#f5c542;--green:#22c55e;--blue:#7dd3fc;--text:#e8eef7;--muted:#9fb3cc;--line:#2a3a55}
 *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:radial-gradient(1200px 500px at 80% -10%,#173a2a 0,transparent 55%),radial-gradient(900px 400px at 10% 0,#2a2110 0,transparent 50%),var(--bg);color:var(--text);line-height:1.6}
 a{color:var(--blue)} .wrap{max-width:1080px;margin:0 auto;padding:24px 20px 64px}
 header{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
 .logo{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:800;font-size:22px;color:var(--gold)} .logo span{color:var(--green)}
-nav a{margin-left:16px;text-decoration:none;color:var(--muted)} nav a:hover{color:var(--text)}
-.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;margin:44px 0 32px}
-h1{font-size:52px;line-height:1.05;margin:0 0 14px} h1 em{font-style:normal;color:var(--gold)}
+.tabs{position:sticky;top:0;z-index:20;background:rgba(11,18,32,.96);border-bottom:1px solid var(--line);display:flex;gap:8px;overflow-x:auto;padding:12px 2px;margin:16px 0 8px;scrollbar-width:thin}
+.tab{white-space:nowrap;padding:9px 16px;border-radius:999px;border:1px solid var(--line);color:var(--muted);text-decoration:none;font-weight:600}
+.tab:hover{color:var(--text);border-color:var(--gold)} .tab.active{background:var(--gold);color:#111;border-color:var(--gold)}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;margin:36px 0 24px}
+h1{font-size:50px;line-height:1.05;margin:0 0 14px} h1 em{font-style:normal;color:var(--gold)}
 .lead{font-size:19px;color:var(--muted)} .pills{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
 .pill{border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:14px;color:var(--muted)}
 .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
 .btn{border:0;border-radius:12px;padding:13px 18px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block}
-.btn-gold{background:var(--gold);color:#111} .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+.btn-gold{background:var(--gold);color:#111;box-shadow:0 0 24px rgba(245,197,66,.35)} .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
 .term{background:#0a0f1a;border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 20px 60px rgba(0,0,0,.45)}
 .term .dots span{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:7px}
 .term pre{margin:14px 0 0;white-space:pre-wrap;word-break:break-all;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:15px;line-height:1.7}
@@ -26,21 +28,22 @@ h1{font-size:52px;line-height:1.05;margin:0 0 14px} h1 em{font-style:normal;colo
 .cmd{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;justify-content:space-between;gap:12px;align-items:center;margin:12px 0}
 .cmd code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14.5px;word-break:break-all}
 .copy{background:#1d2c4d;color:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 12px;cursor:pointer;white-space:nowrap}
-.copy:hover{border-color:var(--gold)}
+.copy:hover{border-color:var(--gold);box-shadow:0 0 22px rgba(245,197,66,.55)}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px}
-.card h3{margin:0 0 8px} .card p{color:var(--muted);margin:0}
-section{margin:48px 0} h2{font-size:30px;margin:0 0 12px} h3{margin-top:22px}
-.steps{counter-reset:step} .step{background:var(--panel2);border:1px solid var(--line);border-radius:16px;padding:20px;margin:14px 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;transition:transform .25s,box-shadow .25s,border-color .25s}
+.card:hover{transform:translateY(-6px);box-shadow:0 18px 50px rgba(245,197,66,.18);border-color:var(--gold)}
+.card h3{margin:0 0 8px} .card p{color:var(--muted);margin:0} .card a{color:var(--text);text-decoration:none}
+section{margin:40px 0} h2{font-size:30px;margin:0 0 12px} h3{margin-top:22px}
+.step{background:var(--panel2);border:1px solid var(--line);border-radius:16px;padding:20px;margin:14px 0}
 .step b{color:var(--gold)} .muted{color:var(--muted)}
 details{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:10px 0}
 details summary{cursor:pointer;font-weight:700}
 footer{border-top:1px solid var(--line);padding-top:22px;color:var(--muted);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .diagram{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px}
-.diagram .node{border:1px solid var(--gold);border-radius:12px;padding:14px 16px;text-align:center;min-width:170px}
-.diagram .node b{display:block} .arrow{font-size:24px;color:var(--gold)}
-@media(max-width:760px){.hero{grid-template-columns:1fr} h1{font-size:38px} .grid{grid-template-columns:1fr} .cmd{flex-direction:column;align-items:stretch} .copy{width:100%}}
-
+table{width:100%;border-collapse:collapse;margin:16px 0} th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top} th{background:var(--panel)}
+.note{background:#1a2a10;border:1px solid var(--green);border-radius:14px;padding:16px 18px;margin:16px 0}
+.warn{background:#2a1a10;border:1px solid var(--gold);border-radius:14px;padding:16px 18px;margin:16px 0}
+@media(max-width:760px){.hero{grid-template-columns:1fr} h1{font-size:38px} .grid{grid-template-columns:1fr} .cmd{flex-direction:column;align-items:stretch} .copy{width:100%} table{font-size:14px}}
 .blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;pointer-events:none;animation:blobMove 14s ease-in-out infinite alternate}
 .blob1{width:420px;height:420px;background:#173a2a;left:-80px;top:-60px}
 .blob2{width:360px;height:360px;background:#3a2a10;right:-60px;top:120px;animation-delay:-5s}
@@ -50,17 +53,10 @@ footer{border-top:1px solid var(--line);padding-top:22px;color:var(--muted);disp
 @keyframes floatUp{from{transform:translateY(20px);opacity:0}50%{opacity:.9}to{transform:translateY(-90px);opacity:0}}
 h1,h2{background:linear-gradient(90deg,#f5c542,#22c55e,#7dd3fc,#f5c542);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gradShift 8s linear infinite}
 @keyframes gradShift{to{background-position:300% 0}}
-.card{transition:transform .25s,box-shadow .25s,border-color .25s}
-.card:hover{transform:translateY(-6px);box-shadow:0 18px 50px rgba(245,197,66,.18);border-color:var(--gold)}
-.copy{box-shadow:0 0 0 rgba(245,197,66,0)}
-.copy:hover{box-shadow:0 0 22px rgba(245,197,66,.55);border-color:var(--gold)}
-.btn-gold{box-shadow:0 0 24px rgba(245,197,66,.35);transition:transform .2s,box-shadow .2s}
-.btn-gold:hover{transform:translateY(-2px);box-shadow:0 0 34px rgba(245,197,66,.6)}
 .wave-divider{display:block;width:100%;height:48px;margin:28px 0}
 .pulse-dot{animation:pulseDot 2s ease-in-out infinite}
 @keyframes pulseDot{0%,100%{opacity:.3}50%{opacity:1}}
-.vps-node{transition:transform .25s}
-.vps-node:hover{transform:scale(1.06)}
+.vps-node{transition:transform .25s} .vps-node:hover{transform:scale(1.06)}
 @keyframes dashFlow{to{stroke-dashoffset:-40}}
 .flow-line{stroke-dasharray:8 8;animation:dashFlow 1.6s linear infinite}
 .hero{position:relative}
@@ -71,40 +67,34 @@ h1,h2{background:linear-gradient(90deg,#f5c542,#22c55e,#7dd3fc,#f5c542);backgrou
 <div class="wrap">
 <header>
   <div class="logo">vps<span>-connect</span></div>
-  <nav><a href="#start">Start</a><a href="#steps">Steps</a><a href="#safety">Safety</a><a href="#faq">FAQ</a><a href="https://github.com/mymyanmarland/vps-connect" target="_blank" rel="noopener">GitHub ↗</a></nav>
+  <div><a href="https://github.com/mymyanmarland/vps-connect" target="_blank" rel="noopener">GitHub ↗</a></div>
 </header>
+<nav class="tabs" aria-label="Sections"><a class="tab active" href="index.html">Overview</a><a class="tab" href="bash.html">Bash</a><a class="tab" href="powershell.html">PowerShell</a><a class="tab" href="windows.html">Windows</a><a class="tab" href="phone.html">Phone</a><a class="tab" href="faq.html">FAQ</a></nav>
 
 <section class="hero">
   <div>
     <h1>Connect to <em>any VPS</em> from <em>any terminal.</em></h1>
     <p class="lead">One script. One alias. No IP to remember. Run it once per terminal, then connect with <code>ssh vps2</code> — from a PC terminal or a phone terminal.</p>
     <div class="pills"><span class="pill">● PC terminal</span><span class="pill">● Phone • Termux</span><span class="pill">● Any VPS</span><span class="pill">● Open source • MIT</span></div>
-    <div class="cta"><a class="btn btn-gold" href="#start">Get the script ↓</a><a class="btn btn-ghost" href="#steps">How it works</a></div>
-    <p class="muted">No web panel. No server to run. No account. Just one Bash script in your own terminal.</p>
+    <div class="cta"><a class="btn btn-gold" href="bash.html">Bash version →</a><a class="btn btn-ghost" href="powershell.html">PowerShell version →</a></div>
+    <p class="muted">No web panel. No server to run. No account. Just one script in your own terminal.</p>
   </div>
   <div class="term" aria-label="Terminal demo">
     <div class="dots"><span style="background:#ff5f56"></span><span style="background:#ffbd2e"></span><span style="background:#27c93f"></span> terminal</div>
-    <pre id="typed" aria-label="Animated terminal demo">$ ./connect-vps.sh --name vps2 --host &lt;VPS-IP&gt;<span id="cursor">▋</span></pre>
+    <pre id="typed" aria-label="Animated terminal demo">$ ./connect-vps.sh --name vps2 --host &lt;VPS-IP&gt;</pre>
   </div>
 </section>
-
-<svg class="wave-divider" viewBox="0 0 1200 48" preserveAspectRatio="none" aria-hidden="true"><path d="M0 24 Q150 4 300 24 T600 24 T900 24 T1200 24" fill="none" stroke="#f5c542" stroke-width="3"/><path d="M0 36 Q200 18 400 36 T800 36 T1200 36" fill="none" stroke="#22c55e" stroke-width="2" opacity=".6"/></svg>
-<section id="start">
-  <h2>Start in 3 commands</h2>
-  <p class="muted">Download, make it executable, run it. Replace <code>&lt;VPS-IP&gt;</code> with your VPS IP or hostname, and <code>vps2</code> with any alias you like.</p>
-  <div class="cmd"><code id="dl">curl -O https://raw.githubusercontent.com/mymyanmarland/vps-connect/main/connect-vps.sh</code><button class="copy" data-copy="dl">Copy</button></div>
-  <div class="cmd"><code id="chmod">chmod +x connect-vps.sh</code><button class="copy" data-copy="chmod">Copy</button></div>
-  <div class="cmd"><code id="run">./connect-vps.sh --name vps2 --host &lt;VPS-IP&gt;</code><button class="copy" data-copy="run">Copy</button></div>
-  <div class="cmd"><code id="ssh">ssh vps2</code><button class="copy" data-copy="ssh">Copy</button></div>
-  <p class="muted" id="copy-note">Tip: try the dry run first — it changes nothing: <code>./connect-vps.sh --dry-run --name vps2 --host &lt;VPS-IP&gt;</code></p>
-</section>
-
 <section>
+  <h2>Pick your terminal</h2>
   <div class="grid">
-    <div class="card"><h3>🔑 Key, not password</h3><p>After the first setup, you connect with your SSH key. No password to type every time, no IP to remember.</p></div>
-    <div class="card"><h3>📱 PC + phone</h3><p>Same commands on a PC terminal and on Android Termux. Run the script once on each device you want to use.</p></div>
+    <a href="bash.html"><div class="card"><h3>🐧 Bash →</h3><p>macOS, Linux, Git Bash, WSL, Termux. The original <code>connect-vps.sh</code>.</p></div></a>
+    <a href="powershell.html"><div class="card"><h3>🪟 PowerShell →</h3><p>Windows PowerShell, no Git Bash needed. The new <code>connect-vps.ps1</code>.</p></div></a>
+    <a href="windows.html"><div class="card"><h3>💻 Windows →</h3><p>Not sure which one? Compare PowerShell, Git Bash, and WSL side by side.</p></div></a>
+    <a href="phone.html"><div class="card"><h3>📱 Phone →</h3><p>Android Termux, and what to do on iOS instead.</p></div></a>
+    <a href="faq.html"><div class="card"><h3>❓ FAQ →</h3><p>Safety, passwords, failures, and what was actually tested.</p></div></a>
     <div class="card"><h3>🛡️ Safe by default</h3><p>Your private key never leaves your device. Only the public key is copied. Config is backed up before editing.</p></div>
   </div>
+
   <div class="diagram" aria-label="Animated diagram: terminal to VPS nodes">
     <svg viewBox="0 0 900 220" width="100%" role="img" aria-label="Animated diagram, not a screenshot">
       <path class="flow-line" d="M210 110 H380" stroke="#f5c542" stroke-width="3" fill="none"/>
@@ -120,47 +110,26 @@ h1,h2{background:linear-gradient(90deg,#f5c542,#22c55e,#7dd3fc,#f5c542);backgrou
     </svg>
   </div>
   <p class="muted" style="text-align:center">Diagram: one script run per terminal — then connect with a short alias, on any VPS.</p>
-</section>
 
-<section id="steps">
-  <h2>Step by step</h2>
-  <div class="step"><b>1. Put the script on your terminal device.</b><br>On a PC, download it from the GitHub repo and open a terminal in that folder. On Android, use Termux and download it there. This chat app itself is not a terminal — the script runs in a real terminal app.</div>
-  <div class="step"><b>2. Run it.</b><br><code>./connect-vps.sh --name vps2 --host &lt;VPS-IP&gt;</code> — or just <code>./connect-vps.sh</code> and answer the two prompts: alias, then IP.</div>
-  <div class="step"><b>3. First time only: type the VPS password in your own terminal, at that prompt.</b><br>Characters will not show while you type — that is normal. Never send a password in chat, email, or a screenshot. The script never stores it.</div>
-  <div class="step"><b>4. Done. Connect any time.</b><br><code>ssh vps2</code> — for a new VPS, run the script again with a new name and IP. For a new device, run the script again on that device.</div>
 </section>
-
-<section id="safety">
-  <h2>Safety, in plain words</h2>
-  <ul>
-    <li><b>Private key stays on your device.</b> Only the <code>.pub</code> file is sent to a VPS.</li>
-    <li><b>Password is never stored by the script.</b> Not in a file, not in an environment variable, not in a command.</li>
-    <li><b>Config is backed up</b> to <code>~/.ssh/config.bak-&lt;date&gt;-&lt;pid&gt;</code> before editing, and a second run with the same alias replaces that block — it never duplicates it.</li>
-    <li><b>Unsafe input is rejected</b> before any SSH command runs: bad aliases, bad ports, and hosts with spaces or shell characters.</li>
-    <li><b>No automatic installs.</b> If OpenSSH is missing, the script prints an install hint and exits.</li>
-  </ul>
-</section>
-
-<section id="faq">
-  <h2>FAQ</h2>
-  <details><summary>Is this a web panel?</summary><p>No. There is no website to log into and no server to run. It is one script you run in your own terminal.</p></details>
-  <details><summary>Does it work for any VPS?</summary><p>Yes — any VPS that accepts SSH. Change only <code>--name</code> and <code>--host</code> per VPS.</p></details>
-  <details><summary>Can I use it on more than one device?</summary><p>Yes. Run the script once on each device. Each device gets its own key; the VPS accepts all of them.</p></details>
-  <details><summary>What if the test fails?</summary><p>Check the IP, user, and port, then run again with the same alias — the block will be replaced, not duplicated. If the password was not accepted on first copy, no config change was made yet.</p></details>
-  <details><summary>What was tested?</summary><p>Locally, with no real VPS contact: syntax, help, dry-run, temp-HOME runs (key reuse, backup, same-alias replacement, validation failures), and real ed25519 generation in a temp HOME. A real VPS copy and a real phone run are still for you to test on a VPS you choose.</p></details>
+<section>
+  <h2>Both downloads</h2>
+  <p class="muted">Replace <code>&lt;VPS-IP&gt;</code> with your VPS IP or hostname, and <code>vps2</code> with any alias you like.</p>
+<div class="cmd"><code id="dl-sh">curl -O https://raw.githubusercontent.com/mymyanmarland/vps-connect/main/connect-vps.sh</code><button class="copy" data-copy="dl-sh">Copy</button></div><div class="cmd"><code id="dl-ps">Invoke-WebRequest -Uri https://raw.githubusercontent.com/mymyanmarland/vps-connect/main/connect-vps.ps1 -OutFile connect-vps.ps1</code><button class="copy" data-copy="dl-ps">Copy</button></div><div class="cmd"><code id="ssh2">ssh vps2</code><button class="copy" data-copy="ssh2">Copy</button></div>
 </section>
 
 <svg class="wave-divider" viewBox="0 0 1200 48" preserveAspectRatio="none" aria-hidden="true"><path d="M0 24 Q150 44 300 24 T600 24 T900 24 T1200 24" fill="none" stroke="#22c55e" stroke-width="3"/></svg>
 <footer>
   <div><b style="color:var(--gold)">vps-connect</b> • MIT • Open Source</div>
-  <div><a href="https://github.com/mymyanmarland/vps-connect" target="_blank" rel="noopener">GitHub repository ↗</a> • <a href="https://raw.githubusercontent.com/mymyanmarland/vps-connect/main/connect-vps.sh" target="_blank" rel="noopener">Raw script ↗</a></div>
+  <div><a href="https://github.com/mymyanmarland/vps-connect" target="_blank" rel="noopener">GitHub repository ↗</a></div>
 </footer>
 </div>
 <script>
 document.querySelectorAll('.copy').forEach(function(btn){
   btn.addEventListener('click', function(){
     var id = btn.getAttribute('data-copy');
-    var text = document.getElementById(id).textContent;
+    var el = document.getElementById(id); if(!el) return;
+    var text = el.textContent;
     var done = function(){ var old = btn.textContent; btn.textContent = 'Copied ✓'; setTimeout(function(){ btn.textContent = old; }, 1600); };
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(done).catch(function(){ fallback(); });
@@ -172,18 +141,20 @@ document.querySelectorAll('.copy').forEach(function(btn){
     }
   });
 });
+
 (function(){
-  var lines = ['$ ./connect-vps.sh --name vps2 --host <VPS-IP>', '✓ Public key copied.', '✓ Alias added: ssh vps2', 'VPS-CONNECT-OK', '$ ssh vps2'];
+  var lines = ['$ ./connect-vps.sh --name vps2 --host <VPS-IP>', 'Public key copied.', 'Alias added: ssh vps2', 'VPS-CONNECT-OK', '$ ssh vps2'];
   var el = document.getElementById('typed'); if(!el) return;
-  var li = 0, ci = 0, buf = '';
+  var li = 0, ci = 0;
   function tick(){
-    if (li >= lines.length) { setTimeout(function(){ li = 0; ci = 0; buf = ''; el.innerHTML = '$ '; }, 2200); return; }
+    if (li >= lines.length) { setTimeout(function(){ li = 0; ci = 0; el.innerHTML = '$ '; }, 2200); return; }
     var line = lines[li];
-    if (ci <= line.length) { buf = lines.slice(0, li).join('\n') + (li ? '\n' : '') + line.slice(0, ci); el.innerHTML = buf.replace(/&/g,'&amp;').replace(/</g,'&lt;') + '<span id="cursor">▋</span>'; ci++; setTimeout(tick, 28); }
+    if (ci <= line.length) { var buf = lines.slice(0, li).join('\n') + (li ? '\n' : '') + line.slice(0, ci); el.innerHTML = buf.replace(/&/g,'&amp;').replace(/</g,'&lt;') + '<span>\u258b</span>'; ci++; setTimeout(tick, 28); }
     else { li++; ci = 0; setTimeout(tick, 420); }
   }
   el.innerHTML = '$ '; setTimeout(tick, 500);
 })();
+
 </script>
 </body>
 </html>
