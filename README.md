@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="assets/logo.jpg" alt="vps-connect logo" width="120">
+
 ![vps-connect banner](assets/banner.svg)
 
 ![Hero waves — animated diagram](assets/hero-waves.svg)

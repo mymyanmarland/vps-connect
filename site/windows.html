@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>vps-connect — Windows: PowerShell, Git Bash, or WSL?</title>
+<link rel="icon" type="image/jpeg" href="assets/logo.jpg">
 <meta name="description" content="vps-connect: connect to any VPS from any terminal with one script and a short alias.">
 <style>
 
@@ -16,8 +17,11 @@ a{color:var(--sky)}
 a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:8px}
 .wrap{width:100%;max-width:1120px;margin:0 auto;padding:16px 16px 56px}
 header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:4px 0 12px}
-.logo{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:800;font-size:clamp(1.15rem,4.5vw,1.4rem);color:var(--gold)}
-.logo span{color:var(--green)}
+.logo{display:flex;align-items:center;gap:10px;font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:800;font-size:clamp(1.15rem,4.5vw,1.4rem);color:var(--gold)}
+.logo img{height:40px;width:40px;display:block;flex:0 0 auto}
+.logo-text{color:var(--gold)}
+.logo-text span{color:var(--green)}
+.hero-logo{height:96px;width:auto;display:block;margin-bottom:14px}
 .tabs{position:sticky;top:0;z-index:20;display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin;margin:0 -16px;padding:12px 16px;background:rgba(11,18,32,.97);border-bottom:1px solid var(--line)}
 .tab{flex:0 0 auto;white-space:nowrap;padding:10px 15px;border-radius:999px;border:1px solid var(--line);color:var(--muted);text-decoration:none;font-weight:650;font-size:.95rem;min-height:44px;display:inline-flex;align-items:center}
 .tab:hover{color:var(--ink);border-color:var(--gold)}
@@ -93,7 +97,7 @@ table{width:100%;border-collapse:collapse} th,td{border:1px solid var(--line);pa
 <body>
 <div class="wrap">
 <header>
-  <div class="logo">vps<span>-connect</span></div>
+  <div class="logo"><img src="assets/logo.jpg" alt="vps-connect logo" width="40" height="40"><span class="logo-text">vps<span>-connect</span></span></div>
   <div><a href="https://github.com/mymyanmarland/vps-connect" target="_blank" rel="noopener">GitHub ↗</a></div>
 </header>
 <nav class="tabs" aria-label="Sections"><a class="tab" href="index.html">Overview</a><a class="tab" href="bash.html">Bash</a><a class="tab" href="powershell.html">PowerShell</a><a class="tab active" href="windows.html">Windows</a><a class="tab" href="phone.html">Phone</a><a class="tab" href="faq.html">FAQ</a></nav>
